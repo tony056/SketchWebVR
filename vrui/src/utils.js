@@ -8,10 +8,15 @@ var getCurrentPath = (docObj) => {
     return docObj.fileURL().path().split(docObj.displayName())[0];
 }
 
+var createWebVRFolder = (path, folderName) => {
+    createFolder(path, folderName);
+    return `${path}/${folderName}`;
+}
+
 var createFolder = (path, name) => {
     deleteFolder(path, name);
     var fileManager = NSFileManager.defaultManager();
-    fileManager.createDirectoryAtPath_withIntermediate_attributes_error_(path + '/' + name, true, nil, nil);
+    fileManager.createDirectoryAtPath_withIntermediateDirectories_attributes_error_(path + '/' + name, true, nil, nil);
 }
 
 var deleteFolder = (path, name) => {
@@ -21,9 +26,9 @@ var deleteFolder = (path, name) => {
 
 
 
-let exportOptions = {
+const exportOptions = {
     "scales": "1",
     "formats": "png"
 };
 
-export {getDMMScale, exportOptions, getCurrentPath};
+export {getDMMScale, exportOptions, getCurrentPath, createFolder};
