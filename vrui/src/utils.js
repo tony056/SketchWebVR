@@ -19,6 +19,8 @@ var deleteFolder = (path, name) => {
     fileManager.removeItemAtPath_error(path + '/' + name, nil);
 }
 
+
+
 let exportOptions = {
     "scales": "1",
     "formats": "png"
