@@ -35,7 +35,18 @@ var createAssets = (groups) => {
     var assets = '';
     for(let group of groups){
         let name = group.name;
-        assets += `<img id="${name}" src="./img/${name}.png">\n`;
+        // acubemap = `<a-cubemap id="${name}">\n\
+        // <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Solid_gray.png">\n\
+        // <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Solid_gray.png">\n\
+        // <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Solid_gray.png">\n\
+        // <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Solid_gray.png">\n\
+        // <img src="./img/${name}.png">\n\
+        // <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Solid_gray.png">\n\
+        // </a-cubemap>\n`;
+        let id = name.toLowerCase().replace(' ', '-');
+        log(`id: ${id}`);
+        assets += `<img id="${id}" src="./img/${name}.png">\n`;
+        // assets += acubemap;
     }
     return `<a-assets>\n${BASIC_SCENE_SOURCE}${assets}</a-assets>\n`;
 };
@@ -49,7 +60,11 @@ var createUIs = (groups) => {
         let {width, height} = scaleUIs(frame.width, frame.height, d);
         let {x, y} = placeUIs(frame.x, frame.y, width, height, d);
         log(`name: ${name}, x: ${x}, y: ${y}, d:${d}, w: ${width}, h: ${height}`);
-        uis += `<a-box src="#${name}" width="${width}" height="${height}" depth="0.01" position="${x} ${y} ${d}"></a-box>\n`;
+        // uis += `<a-entity>\n\
+        // <a-entity geometry="primitive: box; width: ${width}; height: ${height}; depth: 0.001;" material="side: front; src: #${name}" position="${x} ${y} ${d}"></a-entity>\n\
+        // <a-entity geometry="primitive: box; width: ${width}; height: ${height}; depth: 0.001;" material="side: back; src: https://upload.wikimedia.org/wikipedia/commons/b/b3/Solid_gray.png" position="${x} ${y} ${d}"></a-entity>\n\
+        // </a-entity>\n`;
+        uis += `<a-image width="${width}" height="${height}" position="${x} ${y} ${d}" src="#${name.toLowerCase().replace(' ', '-')}" rotation="0 180 0"></a-image>\n`;
     }
     return uis;
 };
@@ -61,7 +76,7 @@ var scaleUIs = (w, h, d) => {
 
 var placeUIs = (x, y, w, h, d) => {
     let scale = getDMMScale(d);
-    return {x: (x * scale + w / 2) , y: -(y * scale + h / 2) };
+    return {x: (x * scale + w / 2) , y: -(y * scale + h / 2) + 0.5 };
 };
 
 export {createContent};

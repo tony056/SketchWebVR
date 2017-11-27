@@ -11,11 +11,11 @@ export default function(context) {
     sketch.log('path: ' + fileFolder);
     artboards = getArtboardsFromPage(sketch, page);
     // sketch.log('artboads: ' + artboards[0].name)
-    groups = getGroupsFromArtboards(sketch, artboards);
+    // groups = getGroupsFromArtboards(sketch, artboards);
 
 
     // exportGroupsToImages(sketch, groups)
-    exportToWebVR(sketch, 'sketch', groups, fileFolder);
+    exportToWebVR(sketch, 'sketch', artboards, fileFolder);
 }
 
 var exportToWebVR = (sketch, docName, groups, currentPath) => {
