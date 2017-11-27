@@ -34,7 +34,7 @@ var exportToWebVR = (sketch, docName, groups, currentPath) => {
     // generate html content with groups info
     const html = createContent(groups);
     let fileName = 'index.html';
-    createPage(currentPath, fileName, html);
+    createPage(`${currentPath}/${vrFolderName}`, fileName, html);
 }
 
 var createPage = (currentPath, name, content) => {
@@ -87,7 +87,7 @@ var exportGroupsToImages = (sketch, groups, output) => {
     let d = 1;
     for(let group of groups){
         let scale = getDMMScale(d);
-        sketch.log('s: ' + scale);
+        // sketch.log('s: ' + scale);
         let x = group.frame.x;
         let y = group.frame.y;
         let w = group.frame.width * scale;
@@ -95,7 +95,7 @@ var exportGroupsToImages = (sketch, groups, output) => {
         let options = exportOptions;
         options.output = output;
         sketch.log('w, h: ' + w + ', ' + h);
-        group.frame = new sketch.Rectangle(x, y, w, h);
+        // group.frame = new sketch.Rectangle(x, y, w, h);
         group.export(options);
         // d += 1;
     }
